@@ -1,0 +1,53 @@
+@using ProductsAndCategories.Models;
+@model Product;
+@{
+    ViewData["Title"] = "Products List";
+}
+<div class="wrapper">
+    <div class="header">
+        <h1>Products List | <a href="/categories">Categories List</a></h1>
+    </div>
+
+    <form asp-action="AddProduct" asp-controller="Product" method="POST">
+        <div class="form-group">
+            <label asp-for="@Model.Name" class="control-label"></label>
+            <input asp-for="@Model.Name" class="form-control">
+            <span asp-validation-for="@Model.Name"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Description" class="control-label"></label>
+            <input asp-for="@Model.Description" class="form-control">
+            <span asp-validation-for="@Model.Description"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Price" class="control-label"></label>
+            <input asp-for="@Model.Price" class="form-control">
+            <span asp-validation-for="@Model.Price"></span>
+        </div>
+        <input type="submit" />
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            foreach (var item in @ViewBag.allproducts)
+            {
+            <tr>
+                <td scope="col"><a href="/products/@item.ProductId">@item.Name</a></td>
+                <td scope="col">@item.Description</td>
+                <td scope="col">@item.Price</td>
+                <td scope="col"><a href="/Products/delete/@item.ProductId">Delete</a></td>
+            </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

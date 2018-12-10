@@ -1,0 +1,39 @@
+@using ProductsAndCategories.Models;
+@model Category;
+@{
+    ViewData["Title"] = "Categories List";
+}
+<div class="wrapper">
+    <div class="header">
+        <h1><a href="/">Products List</a> | Categories List</h1>
+    </div>
+
+    <form asp-action="AddCategory" asp-controller="Category" method="POST">
+        <div class="form-group">
+            <label asp-for="@Model.Name" class="control-label"></label>
+            <input asp-for="@Model.Name" class="form-control">
+            <span asp-validation-for="@Model.Name"></span>
+        </div>
+        <input type="submit" />
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            foreach (var item in @ViewBag.allcategories)
+            {
+            <tr>
+                <td scope="col"><a href="/categories/@item.CategoryId">@item.Name</a></td>
+                <td scope="col"><a href="/categories/delete/@item.CategoryId">Delete</a></td>
+            </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

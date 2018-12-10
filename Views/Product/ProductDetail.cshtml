@@ -1,0 +1,46 @@
+@using ProductsAndCategories.Models;
+@model Product;
+@{
+    ViewData["Title"] = "Product Detail";
+}
+<div class="wrapper">
+    <div class="header">
+        <h1>Product Detail for @Model.Name</h1>
+        <h3><a href = "/">Products List</a>  |  <a href = "/categories">Categories List</a></h3>
+    </div>
+
+    <form action ="products/associations/add/@Model.ProductId" method = "POST">
+        <div class="form-group">
+            <label class="control-label">Add Category:</label>
+            <select class="form-control" name="category">
+            @{
+                foreach (var item in @ViewBag.catergories)
+                {
+                <option value = "@item.CategoryId">@item.Name</option>
+                }
+            }
+            </select>
+        </div>
+        <input type="submit" />
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            foreach (var i in @Model.ProductCategories)
+            {
+            <tr>
+                <td scope="col">@i.Category.Name</td>
+                <td scope="col"><a href="/products/associations/delete/@i.AssociationId">Delete</a></td>
+            </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
